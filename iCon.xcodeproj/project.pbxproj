@@ -10,9 +10,22 @@
 		90652F962DD0C6A000FB425A /* iCon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		90652FEA2DD0CEEE00FB425A /* Exceptions for "iCon" folder in "iCon" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 90652F952DD0C6A000FB425A /* iCon */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		90652F982DD0C6A000FB425A /* iCon */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				90652FEA2DD0CEEE00FB425A /* Exceptions for "iCon" folder in "iCon" target */,
+			);
 			path = iCon;
 			sourceTree = "<group>";
 		};
@@ -255,6 +268,9 @@
 				DEVELOPMENT_TEAM = J8CQVTJ82B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iCon/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs to access the local network to connect to the Tennis Game Host on your Mac and other players.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "This app uses your device's motion to control the tennis racket in the game.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +300,9 @@
 				DEVELOPMENT_TEAM = J8CQVTJ82B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iCon/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs to access the local network to connect to the Tennis Game Host on your Mac and other players.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "This app uses your device's motion to control the tennis racket in the game.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -1,17 +1,11 @@
-//
-//  iConApp.swift
-//  iCon
-//
-//  Created by Bregas Satria Wicaksono on 11/05/25.
-//
-
+// TennisController/Main App/TennisControllerApp.swift
 import SwiftUI
 
 @main
-struct iConApp: App {
+struct TennisControllerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ControllerView()
         }
     }
 }
