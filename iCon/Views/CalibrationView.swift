@@ -19,29 +19,35 @@ struct CalibrationView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, ControllerConstants.UI.generalPadding)
 
+                // Display current values (post-offset rotation, raw accel/attitude)
                 if let currentData = motionManager.currentGyroData {
-                     VStack {
-                         Text("Current Raw Gyro Values:")
-                             .font(.caption).bold()
-                         Text(currentData.formattedValues) // Note: This will show calibrated values if already calibrated
+                     VStack(alignment: .leading, spacing: 4) {
+                         Text("Current Values:")
+                             .font(.caption).bold().frame(maxWidth: .infinity, alignment: .center)
+                         Text("Rot (calibrated): \(String(format: "X: %.2f, Y: %.2f, Z: %.2f", currentData.rotationX, currentData.rotationY, currentData.rotationZ))")
                              .font(.caption.monospaced())
-                         Text("Current Offset: \(String(format: "X: %.2f, Y: %.2f, Z: %.2f", motionManager.calibrationOffset.x, motionManager.calibrationOffset.y, motionManager.calibrationOffset.z))")
+                         Text("Acc (raw): \(String(format: "X: %.2f, Y: %.2f, Z: %.2f", currentData.accelerationX, currentData.accelerationY, currentData.accelerationZ))")
+                             .font(.caption.monospaced())
+                         Text("Att (raw): \(String(format: "R: %.2f, P: %.2f, Y: %.2f", currentData.roll, currentData.pitch, currentData.yaw))")
+                             .font(.caption.monospaced())
+                         Text("Rotation Offset: \(String(format: "X: %.2f, Y: %.2f, Z: %.2f", motionManager.calibrationOffset.x, motionManager.calibrationOffset.y, motionManager.calibrationOffset.z))")
                              .font(.caption.monospaced())
                              .foregroundColor(.gray)
                      }
                      .padding(.top, 5)
+                     .frame(maxWidth: .infinity)
                 }
 
                 Button {
                     performCalibration()
                 } label: {
-                    Label("Calibrate Now", systemImage: "tuningfork")
+                    Label("Calibrate Gyro Rotation", systemImage: "tuningfork")
                 }
                 .buttonStyle(PrimaryButtonStyle())
                 .padding(.horizontal, ControllerConstants.UI.generalPadding)
                 
                 if showSuccessMessage {
-                    Text("Calibration Successful!")
+                    Text("Gyro Rotation Calibration Successful!")
                         .font(.headline)
                         .foregroundColor(ControllerConstants.UI.secondaryColor)
                         .transition(.opacity.combined(with: .scale))
@@ -61,21 +67,19 @@ struct CalibrationView: View {
             }
             .onAppear {
                 if !motionManager.isMotionActive {
-                    motionManager.startMotionUpdates() // Start motion for live values during calibration
+                    motionManager.startMotionUpdates()
                 }
-                calibrationMessage = "Place your device on a flat, stable surface, then press 'Calibrate Now'."
+                calibrationMessage = "For gyro rotation calibration: Place device on a flat, stable surface, then press 'Calibrate Gyro Rotation'."
             }
-            // Decide if motion should stop on disappear or keep running if ControllerView expects it.
         }
     }
     
     private func performCalibration() {
-        motionManager.calibrate()
-        calibrationMessage = "Calibration completed! The current device orientation is now considered 'zero'."
+        motionManager.calibrate() // This method in MotionManager handles gyro rotation calibration
+        calibrationMessage = "Gyro rotation calibration completed! The current device rotation rate is now considered 'zero'."
         withAnimation {
             showSuccessMessage = true
         }
-        // Optional: auto-dismiss success message or the whole view
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             withAnimation {
                 showSuccessMessage = false
@@ -85,13 +89,13 @@ struct CalibrationView: View {
     }
     
     private func playHapticFeedback(_ type: ControllerConstants.HapticFeedbackType) {
-        // Basic haptic implementation
         let feedbackGenerator: UIFeedbackGenerator
         switch type {
         case .success:
             feedbackGenerator = UINotificationFeedbackGenerator()
             (feedbackGenerator as? UINotificationFeedbackGenerator)?.notificationOccurred(.success)
-        default: // Add more cases as needed from your HapticFeedbackType enum
+        // Handle other haptic types if needed
+        default:
             return
         }
     }
